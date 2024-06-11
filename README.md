@@ -10,6 +10,10 @@ InventoryX is a Node.js-based inventory management system designed to meet the n
 https://www.postman.com/navigation-cosmologist-91296973/workspace/devdynamic-assignment/collection/23475903-5729b00d-0a3c-4f12-8b19-9f8e3984ad45?action=share&creator=23475903
 ## POSTMAN DOCUMENTATION LINK
 https://documenter.getpostman.com/view/23475903/2sA3XMjPGk
+## HOSTED URL
+https://devdynamic-backend-vpp.onrender.com  (For Routes Refer Above Documentation)
+
+## EDGE CASE VALIDATION
 
 | Test Case Description                                     | Input                                                                                                 | Expected Output                                      |
 |-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------|------------------------------------------------------|
