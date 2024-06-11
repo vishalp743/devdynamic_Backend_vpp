@@ -102,6 +102,19 @@ app.post('/discount-coupon/create', (req, res) => {
     res.json({ message: 'Discount coupon created', discountCoupons });
 });
 
+
+app.get('/discount-coupons', (req, res) => {
+    res.json({ discountCoupons });
+});
+
+// API to view cart for a specific customer
+app.get('/cart', (req, res) => {
+    const { customerId } = req.body;
+    if (!customers[customerId]) {
+        return res.status(400).json({ error: 'Customer ID does not exist.' });
+    }
+    res.json({ cart: carts[customerId] || {} });
+});
 // API to view all available inventory
 app.get('/inventory', (req, res) => {
     res.json({ inventory });
