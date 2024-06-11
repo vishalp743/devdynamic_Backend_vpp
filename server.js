@@ -24,10 +24,10 @@ const writeJSONFile = (filePath, data) => {
 };
 
 // File paths
-const inventoryFile = 'https://devdynamic-backend-vpp.onrender.com/inventory.json';
-const cartsFile = 'https://devdynamic-backend-vpp.onrender.com/carts.json';
-const customersFile = 'https://devdynamic-backend-vpp.onrender.com/customers.json';
-const discountCouponsFile = 'https://devdynamic-backend-vpp.onrender.com/discountCoupons.json';
+const inventoryFile = 'inventory.json';
+const cartsFile = 'carts.json';
+const customersFile = 'customers.json';
+const discountCouponsFile = 'discountCoupons.json';
 
 // Read initial data
 let inventory = readJSONFile(inventoryFile) || {};
@@ -52,6 +52,7 @@ app.post('/inventory/add', (req, res) => {
     writeJSONFile(inventoryFile, inventory);
     res.json({ message: 'Item added to inventory', inventory });
 });
+
 // API to edit item in inventory
 app.put('/inventory/edit', (req, res) => {
     const { productId, name, price, quantity } = req.body;
@@ -68,6 +69,7 @@ app.put('/inventory/edit', (req, res) => {
     writeJSONFile(inventoryFile, inventory);
     res.json({ message: `Product ${productId} updated`, inventory });
 });
+
 // API to remove item from inventory
 app.post('/inventory/remove', (req, res) => {
     const { productId } = req.body;
@@ -78,6 +80,7 @@ app.post('/inventory/remove', (req, res) => {
     writeJSONFile(inventoryFile, inventory);
     res.json({ message: `Product ${productId} removed from inventory`, inventory });
 });
+
 // API to create a new discount coupon
 app.post('/discount-coupon/create', (req, res) => {
     const { couponId, percentage, maxCap, validAbove } = req.body;
@@ -99,15 +102,10 @@ app.post('/discount-coupon/create', (req, res) => {
     res.json({ message: 'Discount coupon created', discountCoupons });
 });
 
-
-////////////////////////////////////////////////////////////////////////////////////
-
 // API to view all available inventory
 app.get('/inventory', (req, res) => {
     res.json({ inventory });
 });
-
-/////////////////////////////////////////////////////////////////////////////////////
 
 // API to add customer
 app.post('/customer/add', (req, res) => {
@@ -119,6 +117,7 @@ app.post('/customer/add', (req, res) => {
     writeJSONFile(customersFile, customers);
     res.json({ message: 'Customer added', customers });
 });
+
 // API to add item to cart
 app.post('/cart/add', (req, res) => {
     const { customerId, productId, quantity } = req.body;
@@ -140,6 +139,30 @@ app.post('/cart/add', (req, res) => {
     writeJSONFile(inventoryFile, inventory);
     writeJSONFile(cartsFile, carts);
     res.json({ message: 'Item added to cart', cart: carts[customerId] });
+});
+
+// API to remove item from cart
+app.post('/cart/remove', (req, res) => {
+    const { customerId, productId, quantity } = req.body;
+    if (!customers[customerId]) {
+        return res.status(400).json({ error: 'Customer ID does not exist.' });
+    }
+    if (!carts[customerId] || !carts[customerId][productId]) {
+        return res.status(400).json({ error: 'Product not found in cart.' });
+    }
+    if (quantity <= 0 || quantity > carts[customerId][productId]) {
+        return res.status(400).json({ error: 'Invalid quantity to remove.' });
+    }
+
+    carts[customerId][productId] -= quantity;
+    if (carts[customerId][productId] === 0) {
+        delete carts[customerId][productId];
+    }
+
+    inventory[productId].quantity += quantity; // Restore the inventory quantity
+    writeJSONFile(inventoryFile, inventory);
+    writeJSONFile(cartsFile, carts);
+    res.json({ message: 'Item removed from cart', cart: carts[customerId] });
 });
 
 // API to calculate total price of items in a cart and fetch applicable coupons
@@ -168,9 +191,8 @@ app.post('/cart/total-price', (req, res) => {
         .filter(([couponId, coupon]) => totalPrice > coupon.validAbove)
         .map(([couponId, coupon]) => ({ couponId, percentage: coupon.percentage, maxCap: coupon.maxCap }));
 
-    res.json({ totalPrice,applicableCoupons, priceBreakdown,  });
+    res.json({ totalPrice, applicableCoupons, priceBreakdown });
 });
-
 
 // API to apply discount coupon and process order
 app.post('/cart/apply-discount', (req, res) => {
@@ -203,7 +225,6 @@ app.post('/cart/apply-discount', (req, res) => {
 
     res.json({ message: 'Order placed successfully', originalValue: cartValue, discountAmount, discountedValue });
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 3000;
