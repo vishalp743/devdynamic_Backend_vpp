@@ -24,10 +24,10 @@ const writeJSONFile = (filePath, data) => {
 };
 
 // File paths
-const inventoryFile = './inventory.json';
-const cartsFile = './carts.json';
-const customersFile = './customers.json';
-const discountCouponsFile = './discountCoupons.json';
+const inventoryFile = 'https://devdynamic-backend-vpp.onrender.com/inventory.json';
+const cartsFile = 'https://devdynamic-backend-vpp.onrender.com/carts.json';
+const customersFile = 'https://devdynamic-backend-vpp.onrender.com/customers.json';
+const discountCouponsFile = 'https://devdynamic-backend-vpp.onrender.com/discountCoupons.json';
 
 // Read initial data
 let inventory = readJSONFile(inventoryFile) || {};

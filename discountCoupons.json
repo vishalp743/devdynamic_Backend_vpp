@@ -1,12 +1,3 @@
 {
-  "dis1": {
-    "percentage": 10,
-    "maxCap": 1999,
-    "validAbove": 9999
-  },
-  "dis2": {
-    "percentage": 22,
-    "maxCap": 8599,
-    "validAbove": 50000
-  }
+
 }
