@@ -218,14 +218,14 @@ app.post('/cart/apply-discount', (req, res) => {
     }
 
     const cartValue = carts[customerId].totalPrice;
-    const discount = discountCoupons[discountId];
-    if (!discount) {
-        return res.status(400).json({ error: 'Invalid discount coupon.' });
-    }
+    let discountAmount = 0;
 
-    let discountAmount = (discount.percentage / 100) * cartValue;
-    if (discountAmount > discount.maxCap) {
-        discountAmount = discount.maxCap;
+    if (discountId && discountCoupons[discountId]) {
+        const discount = discountCoupons[discountId];
+        discountAmount = (discount.percentage / 100) * cartValue;
+        if (discountAmount > discount.maxCap) {
+            discountAmount = discount.maxCap;
+        }
     }
 
     const discountedValue = cartValue - discountAmount;
@@ -238,6 +238,7 @@ app.post('/cart/apply-discount', (req, res) => {
 
     res.json({ message: 'Order placed successfully', originalValue: cartValue, discountAmount, discountedValue });
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
