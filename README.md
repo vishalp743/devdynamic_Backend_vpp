@@ -1,17 +1,16 @@
 # Inventory Management System 
 
-## Problem Statement
-An ecommerce store needs a robust inventory management system to track products, manage stock levels, and ensure smooth operations. The system should allow administrators to add new products to inventory, update existing product details, and remove products that are no longer available. Additionally, the system should provide insights into inventory levels and generate reports for better decision-making.
-
-## Solution Overview
-InventoryX is a Node.js-based inventory management system designed to meet the needs of online stores. It provides a set of RESTful APIs for managing inventory, including adding, updating, and removing products. The system stores inventory data in a JSON file for simplicity, but it can be easily adapted to use a database like MongoDB or MySQL in a production environment. Postman is used for testing the API endpoints, ensuring reliability and performance.
-
 ## POSTMAN COLLECTION LINK
 https://www.postman.com/navigation-cosmologist-91296973/workspace/devdynamic-assignment/collection/23475903-5729b00d-0a3c-4f12-8b19-9f8e3984ad45?action=share&creator=23475903
 ## POSTMAN DOCUMENTATION LINK
 https://documenter.getpostman.com/view/23475903/2sA3XMjPGk
 ## HOSTED URL
 https://devdynamic-backend-vpp.onrender.com  (For Routes Refer Above Documentation)
+
+## Solution Overview
+InventoryX is a Node.js-based inventory management system designed to meet the needs of online stores. It provides a set of RESTful APIs for managing inventory, including adding, updating, and removing products. The system stores inventory data in a JSON file for simplicity, but it can be easily adapted to use a database like MongoDB or MySQL in a production environment. Postman is used for testing the API endpoints, ensuring reliability and performance.
+
+
 
 ## EDGE CASE VALIDATION
 
