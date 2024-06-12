@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postman Collection Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+        }
+        header h1 {
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0;
+            font-size: 24px;
+        }
+        .main {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+        }
+        .route {
+            background: #e2e2e2;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .route h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+        .route p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .route pre {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .route pre code {
+            color: #77aaff;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Postman Collection Documentation</h1>
+    </header>
+    <div class="container">
+        <div class="main">
+            <h2>Admin Routes</h2>
+            <div class="route">
+                <h2>POST /inventory/add</h2>
+                <p>Add item to inventory</p>
+                <pre><code>Example Request
+curl --location 'https://devdynamic-backend-vpp.onrender.com/inventory/add' \
+--data '{
+    "productId": "p1",
+    "name":"Monitor",
+    "price": 9898,
+    "quantity": 50
+  }'
+Example Response
+No response body
+                </code></pre>
+            </div>
+            </div>
+            <div class="route">
+                <h2>PUT /inventory/edit</h2>
+                <p>Edit item in inventory</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/inventory/edit' \
+                    --data '{
+                        "productId": "p1",
+                        "name":"Monitor",
+                        "price": 9999,
+                        "quantity": 50
+                      }'
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+            <div class="route">
+                <h2>POST /inventory/remove</h2>
+                <p>Remove item from inventory</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/inventory/remove' \
+                    --data '{
+                        "productId": "p1"
+                      }'
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+            <div class="route">
+                <h2>POST /discount-coupon/create</h2>
+                <p>Create a new discount coupon</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/discount-coupon/create' \
+                    --data '{
+                        "couponId": "dis1",
+                        "percentage":14,
+                        "maxCap": 1229,
+                        "validAbove": 10000
+                      }'
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+            <div class="route">
+                <h2>GET /discount-coupons</h2>
+                <p>View all discount coupons</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/discount-coupons'
+                    
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+
+            <h2>Customer Routes</h2>
+            <div class="route">
+                <h2>GET /inventory</h2>
+                <p>View all available inventory</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/inventory' 
+                    
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+            <div class="route">
+                <h2>POST /customer/add</h2>
+                <p>Add a new customer</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/customer/add' \
+                    --data '{
+                        "customerId": "cus1",
+                        "name": "VISHAL"
+                      }'
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+            <div class="route">
+                <h2>POST /cart/add</h2>
+                <p>Add item to cart</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/cart/add' \
+                    --data '{
+                        "customerId": "cus1",
+                        "productId": "p1",
+                        "quantity": 1
+                      }
+                      '
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+            <div class="route">
+                <h2>POST /cart/remove</h2>
+                <p>Remove item from cart</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/cart/remove' \
+                    --data '{
+                        "customerId": "cus1",
+                        "productId": "p1",
+                        "quantity" :1
+                    }'
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+            <div class="route">
+                <h2>POST /cart/total-price</h2>
+                <p>Calculate total price of items in a cart and fetch applicable coupons</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/cart/total-price' \
+                    --data '{
+                        "customerId": "cus1"
+                    }'
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+            <div class="route">
+                <h2>POST /cart/apply-discount</h2>
+                <p>Apply discount coupon and process order</p>
+                <pre><code>Example Request
+curl --location 'https://devdynamic-backend-vpp.onrender.com/cart/apply-discount' \
+--data '{
+    "customerId": "cus1",
+    "discountId": ""
+}'
+Example Response
+No response body
+                </code></pre>
+           
+                <h2>GET /discount-coupons</h2>
+                <p>View all available discount coupons</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/cart/apply-discount' \
+                    --data '{
+                        "customerId": "cus1",
+                        "discountId": ""
+                    }'
+                    Example Response
+                    No response body
+                                    </code></pre>
+         
+            <div class="route">
+                <h2>GET /cart/:customerId</h2>
+                <p>View cart for a specific customer</p>
+                <pre><code>Example Request
+                    curl --location 'https://devdynamic-backend-vpp.onrender.com/cart/:customerId' \
+                    --data '{
+                        "customerId": "cus1"
+                    }'
+                    Example Response
+                    No response body
+                                    </code></pre>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>DevDynamic Vishal &copy; 2024</p>
+    </footer>
+</body>
+</html>
