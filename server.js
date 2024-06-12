@@ -1,9 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
+
+// Set the view engine to ejs
+app.set('view engine', 'ejs');
+
+// Set the views directory
+app.set('views', path.join(__dirname, 'views'));
 
 const readJSONFile = (filePath) => {
     try {
@@ -218,14 +225,14 @@ app.post('/cart/apply-discount', (req, res) => {
     }
 
     const cartValue = carts[customerId].totalPrice;
-    let discountAmount = 0;
+    const discount = discountCoupons[discountId];
+    if (!discount) {
+        return res.status(400).json({ error: 'Invalid discount coupon.' });
+    }
 
-    if (discountId && discountCoupons[discountId]) {
-        const discount = discountCoupons[discountId];
-        discountAmount = (discount.percentage / 100) * cartValue;
-        if (discountAmount > discount.maxCap) {
-            discountAmount = discount.maxCap;
-        }
+    let discountAmount = (discount.percentage / 100) * cartValue;
+    if (discountAmount > discount.maxCap) {
+        discountAmount = discount.maxCap;
     }
 
     const discountedValue = cartValue - discountAmount;
@@ -239,6 +246,10 @@ app.post('/cart/apply-discount', (req, res) => {
     res.json({ message: 'Order placed successfully', originalValue: cartValue, discountAmount, discountedValue });
 });
 
+
+app.get('/', (req, res) => {
+    res.render('showPage');
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;
